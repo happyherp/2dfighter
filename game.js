@@ -30,3 +30,26 @@ export class Fighter {
     }
   }
 }
+export function drawHealthBars(ctx, canvas, fighter1, fighter2) {
+  if (fighter1.health === undefined) fighter1.health = 100;
+  if (fighter2.health === undefined) fighter2.health = 100;
+  const barWidth = canvas.width / 3;
+  const barHeight = 20;
+
+  // Fighter1 health bar (left)
+  ctx.fillStyle = 'gray';
+  ctx.fillRect(20, 20, barWidth, barHeight);
+  ctx.fillStyle = 'green';
+  ctx.fillRect(20, 20, barWidth * fighter1.health / 100, barHeight);
+  ctx.strokeStyle = 'black';
+  ctx.strokeRect(20, 20, barWidth, barHeight);
+
+  // Fighter2 health bar (right)
+  ctx.fillStyle = 'gray';
+  ctx.fillRect(canvas.width - barWidth - 20, 20, barWidth, barHeight);
+  ctx.fillStyle = 'green';
+  ctx.fillRect(canvas.width - barWidth - 20, 20, barWidth * fighter2.health / 100, barHeight);
+  ctx.strokeStyle = 'black';
+  ctx.strokeRect(canvas.width - barWidth - 20, 20, barWidth, barHeight);
+}
+
