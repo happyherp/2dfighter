@@ -30,13 +30,14 @@ function update() {
   if (keys['ArrowDown']) fighter2.move(0, 1);
   if (keys['ArrowLeft']) fighter2.move(-1, 0);
   if (keys['ArrowRight']) fighter2.move(1, 0);
-}
   if (fighter1.isAttacking && isColliding(fighter1, fighter2)) {
     fighter2.health = Math.max(0, fighter2.health - 1);
   }
   if (fighter2.isAttacking && isColliding(fighter2, fighter1)) {
     fighter1.health = Math.max(0, fighter1.health - 1);
   }
+}
+
 
 
 
