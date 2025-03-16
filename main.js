@@ -1,4 +1,4 @@
-import { Fighter } from './game.js';
+import { Fighter, drawHealthBars } from './game.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -31,14 +31,36 @@ function update() {
   if (keys['ArrowLeft']) fighter2.move(-1, 0);
   if (keys['ArrowRight']) fighter2.move(1, 0);
 }
+  if (fighter1.isAttacking && isColliding(fighter1, fighter2)) {
+    fighter2.health = Math.max(0, fighter2.health - 1);
+  }
+  if (fighter2.isAttacking && isColliding(fighter2, fighter1)) {
+    fighter1.health = Math.max(0, fighter1.health - 1);
+  }
+
+
+
+function isColliding(f1, f2) {
+  const margin = 10;
+  return f1.x < f2.x + f2.width + margin &&
+         f1.x + f1.width + margin > f2.x &&
+         f1.y < f2.y + f2.height &&
+         f1.y + f1.height > f2.y;
+}
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   fighter1.draw(ctx);
+  drawHealthBars(ctx, canvas, fighter1, fighter2);
+
   fighter2.draw(ctx);
 }
 
 function gameLoop() {
+
+
+
+
   update();
   draw();
   requestAnimationFrame(gameLoop);
